@@ -1,6 +1,6 @@
 import { FinancialMetric, Issue, StrategyItem, ActionPlan, CompetitorData } from './types';
 
-// 2025 Financial Performance
+// 2025 Financial Performance - Updated based on report
 export const metrics2025: FinancialMetric[] = [
   { 
     label: '总营收', 
@@ -8,7 +8,7 @@ export const metrics2025: FinancialMetric[] = [
     actual: 2009.55, 
     unit: '万元', 
     status: 'danger', 
-    analysis: '达成率80.1% (含预营收154万)。绩效排名：4。受存量大客户依赖及新客落地滞后影响。' 
+    analysis: '达成率80.1% (含预营收154万)。绩效排名：4。主要受存量大客户依赖及新客落地滞后影响。' 
   },
   { 
     label: '毛利润', 
@@ -16,7 +16,7 @@ export const metrics2025: FinancialMetric[] = [
     actual: 60.16, 
     unit: '万元', 
     status: 'danger',
-    analysis: '达成率20% (含预毛利21万)。绩效排名：10。BPO亏损与历史赔付是主要拖累。'
+    analysis: '达成率20% (含预毛利21万)。绩效排名：10。BPO亏损(-59万)与历史赔付(45万)是主要拖累。'
   },
   { 
     label: 'BPO业务营收', 
@@ -36,7 +36,7 @@ export const metrics2025: FinancialMetric[] = [
   },
 ];
 
-// 2026 Targets
+// 2026 Targets - Updated based on "26年目标及计划-汇总" slide
 export const metrics2026: FinancialMetric[] = [
   { label: '保底营收目标', target: 3536.95, actual: 0, unit: '万元', status: 'warning' },
   { label: '冲刺营收目标', target: 4421.18, actual: 0, unit: '万元', status: 'success' },
@@ -44,7 +44,7 @@ export const metrics2026: FinancialMetric[] = [
   { label: '冲刺毛利润', target: 724.71, actual: 0, unit: '万元', status: 'success' },
 ];
 
-// Competitor Analysis Data
+// Competitor Analysis Data - Updated rankings based on slides 9 & 10
 export const competitorAnalysis: CompetitorData[] = [
   {
     client: '平安产险 (ITO)',
@@ -52,9 +52,9 @@ export const competitorAnalysis: CompetitorData[] = [
     ourRank: 2,
     topCompetitorName: '中软国际',
     topCompetitorHeadcount: 87,
-    totalCompetitors: 4,
+    totalCompetitors: 8,
     trend: 'up',
-    description: '我司排名第2 (65人)，仅次于中软(87人)，优于拓保(55人)与法本(52人)。同比去年增加1人，稳住了核心盘。'
+    description: '我司排名第2 (65人)，仅次于中软(87人)，优于拓保(55人)、紫川(53人)与法本(52人)。同比去年增加1人，稳住了核心盘。'
   },
   {
     client: '爱奇迹 (ITO)',
@@ -63,13 +63,13 @@ export const competitorAnalysis: CompetitorData[] = [
     topCompetitorName: '友商1',
     topCompetitorHeadcount: 19,
     trend: 'stable',
-    description: '目前排名第3，较去年排名持平。主要竞争对手占据大量份额(19人/14人)，需寻找差异化突破口。'
+    description: '目前排名第3 (5人)，较去年排名持平。友商1(19人)与友商2(14人)占据主要份额，需寻找差异化突破口。'
   },
   {
     client: '百度BPO-乌镇基地',
     ourHeadcount: 106,
     ourRank: 3,
-    topCompetitorName: '中穆',
+    topCompetitorName: '嘉兴中穆',
     topCompetitorHeadcount: 118,
     trend: 'up',
     description: '今年新落地基地，迅速扩充至106人(系统在职)，排名第3。与第一名差距极小，具备冲击头部潜力。'
@@ -82,6 +82,15 @@ export const competitorAnalysis: CompetitorData[] = [
     topCompetitorHeadcount: 59,
     trend: 'up',
     description: '4月入场时排名第6(19人)，年末攀升至第3(36人)，成长速度快于众蚁、威尔达等友商。'
+  },
+  {
+    client: '百度BPO-湛江基地',
+    ourHeadcount: 31,
+    ourRank: 3, // Assuming rank 3 based on list position in slide 10 (rank 2 visually but listed after others)
+    topCompetitorName: '中炎',
+    topCompetitorHeadcount: 34,
+    trend: 'up',
+    description: '4月入场10人排名第7，现攀升至30人+，目前排名靠前。'
   }
 ];
 
@@ -91,11 +100,11 @@ export const keyIssues2025: Issue[] = [
     id: '1',
     category: '财务/经营',
     title: 'BPO业务增收不增利',
-    description: 'BPO全年营收612.3万，但最终核算亏损59万。',
+    description: 'BPO全年营收612.3万，但最终核算亏损59万。月度数据显示，自2025年4月起亏损显著扩大。',
     rootCause: '1. 成本结构失衡：人力成本(2433W/月峰值)与房租/折旧等固定支出未能被低单价覆盖。\n2. 基地分散：多地运营(漳州/乌镇/韶关等8地)导致管理半径过长，运营磨合期成本高。\n3. 商业模式：处于"拿规模"阶段，采用了激进定价策略。',
     impact: '拉低整体毛利率至2.9%，导致部门绩效毛利排名全公司倒数(第10)。',
     severity: 'high',
-    dataPoints: ['营收: 612.3万', '利润: -59万', '基地数: 8个']
+    dataPoints: ['营收: 612.3万', '利润: -59万', '4月单月亏损: -28万']
   },
   {
     id: '2',
@@ -109,37 +118,37 @@ export const keyIssues2025: Issue[] = [
   },
   {
     id: '3',
-    category: '团队/能力',
-    title: '交付模式被动与SOP缺位',
-    description: '团队思维仍停留在"接单-派人"的被动模式，缺乏主动解决方案能力；BPO业务缺乏标准化SOP。',
-    rootCause: '1. 缺乏"专家系统"沉淀，过于依赖个人经验，新人上手慢。\n2. 合作思维局限：仅视自己为甲方的"手脚"，未上升到"大脑"互补的顾问层面。\n3. 缺乏标准化的面试/测试/交付流程文档。',
-    impact: '客户粘性低，容易被低价竞品替代；无法产生技术溢价。',
-    severity: 'medium',
-    dataPoints: ['SOP文档: 缺失', '顾问式交付: 0案例']
-  },
-  {
-    id: '4',
     category: '市场/拓展',
     title: '关键战役失利',
     description: '网易、美团、腾讯PCG等年度框架招标未中选。',
     rootCause: '1. 网易项目：受24年被执行人事件影响，导致25年1月框招未中选。\n2. 美团项目：因缺乏大规模相关离岸交付经验，放弃招标或未通过。\n3. 腾讯PCG：H5项目框架招采未中选。',
-    impact: '导致过度依赖平安系(占比87%+)存量业务，抗风险能力未有实质提升。',
+    impact: '导致过度依赖平安系(占比75%+)存量业务，抗风险能力未有实质提升。',
     severity: 'high',
-    dataPoints: ['网易: 落选', '美团: 放弃', '平安占比: >87%']
+    dataPoints: ['网易: 落选', '美团: 放弃', '平安占比: >75%']
+  },
+  {
+    id: '4',
+    category: '交付/运营',
+    title: '交付模式被动与回款风险',
+    description: '团队思维停留在"接单-派人"，且出现新客户回款逾期风险（爱奇迹逾期6.7万）。',
+    rootCause: '1. 缺乏"专家系统"沉淀，过于依赖个人经验，新人上手慢。\n2. 合作思维局限：仅视自己为甲方的"手脚"。\n3. 流程衔接：新增供应商流程未跑通导致回款滞后。',
+    impact: '客户粘性低，容易被低价竞品替代；资金周转压力增加。',
+    severity: 'medium',
+    dataPoints: ['SOP文档: 缺失', '爱奇迹逾期: 6.7万']
   }
 ];
 
-// Detailed 2026 Strategy
+// Detailed 2026 Strategy - Updated based on client specific slides
 export const strategy2026: StrategyItem[] = [
   {
     id: 's1',
     pillar: '存量稳盘',
     title: '平安系与百度众测基本盘',
-    description: '平安产险/寿险维持65+人规模，百度众测目标冲刺800人。',
+    description: '平安产险维持65+人规模，百度众测目标冲刺800人。',
     tactics: [
       '平安产险：紧盯"理赔共同资源"与"数据智能"组的增量需求，维持排名第2优势。',
-      '百度众测：重点投入自驾项目，利用芜湖/沈阳新基地扩充规模，从计时转向计件结算优化利润。',
-      '爱奇迹/极致游戏：推动客户技术研发岗位回迁深圳的机会，目标合计40人。'
+      '百度众测：重点投入自驾项目，利用芜湖/沈阳新基地扩充规模。',
+      '爱奇迹/极致游戏：推动客户技术研发岗位26年6月前回迁深圳，目标合计40人。'
     ],
     kpi: '平安系营收 > 1900万; 百度BPO毛利率 > 20%'
   },
@@ -150,7 +159,7 @@ export const strategy2026: StrategyItem[] = [
     description: '依托新获取的框架或入库资格，实现BPO业务的规模化复制。',
     tactics: [
       '腾讯TEG：3月通过集采获取入驻资格，复制百度BPO经验，目标100人。',
-      '百度SQC：依托ACG线推荐，切入大模型与萝卜快跑业务，目标100人。',
+      '百度SQC：1月依托ACG线牵线引入，切入大模型与萝卜快跑业务，目标100人。',
       '渠道拓展：通过内部推荐与校招，降低对昂贵招聘渠道的依赖。'
     ],
     kpi: '新增BPO人数 > 200人; 新客户营收贡献 > 450万'
@@ -240,16 +249,46 @@ export const actionPlan: ActionPlan[] = [
   }
 ];
 
-export const revenueData2025 = [
-  { name: '目标', value: 2506.5, fill: '#94a3b8' },
-  { name: '实际', value: 2009.55, fill: '#3b82f6' },
-];
-
-// Cost Structure based on report
+// Cost Structure based on slide 4
 export const costStructureData = [
   { name: '人力成本', value: 77.93 },
   { name: '独立BU成本', value: 14.20 },
   { name: '交付团队成本', value: 3.84 },
   { name: '历史赔付', value: 1.45 },
-  { name: '报销/福利/其他', value: 2.58 }, // Combined small items
+  { name: '报销/福利', value: 1.64 }, 
+  { name: '招聘/资产', value: 0.21 },
+  { name: '收购成本', value: 0.73 }
+];
+
+// BPO Monthly Financial Trend 2024-2025 (Slide 5)
+export const bpoTrendData = [
+  { month: '24-12', revenue: 16.1, profit: -12.2 },
+  { month: '25-01', revenue: 20.5, profit: -6.8 },
+  { month: '25-02', revenue: 18.0, profit: -4.9 },
+  { month: '25-03', revenue: 32.6, profit: -10.6 },
+  { month: '25-04', revenue: 30.6, profit: -28.4 },
+  { month: '25-05', revenue: 37.8, profit: -35.3 },
+  { month: '25-06', revenue: 51.6, profit: -19.1 },
+  { month: '25-07', revenue: 71.2, profit: -4.6 },
+  { month: '25-08', revenue: 58.9, profit: -7.1 },
+  { month: '25-09', revenue: 66.1, profit: 10.4 },
+  { month: '25-10', revenue: 71.2, profit: 17.5 },
+  { month: '25-11', revenue: 77.9, profit: 22.6 },
+  { month: '25-12', revenue: 78.7, profit: 19.6 }
+];
+
+// 2026 Monthly Forecast (Slide 27)
+export const monthlyFinancials2026 = [
+  { month: '1月', revenue: 229.7, cost: 194.8, profit: 34.8, margin: 15.18 },
+  { month: '2月', revenue: 178.4, cost: 175.1, profit: 3.3, margin: 1.87 },
+  { month: '3月', revenue: 254.4, cost: 209.8, profit: 44.5, margin: 17.51 },
+  { month: '4月', revenue: 305.4, cost: 251.4, profit: 53.9, margin: 17.67 },
+  { month: '5月', revenue: 325.9, cost: 286.4, profit: 39.5, margin: 12.12 },
+  { month: '6月', revenue: 366.3, cost: 300.3, profit: 66.0, margin: 18.02 },
+  { month: '7月', revenue: 371.0, cost: 297.1, profit: 73.9, margin: 19.92 },
+  { month: '8月', revenue: 460.3, cost: 381.7, profit: 78.6, margin: 17.08 },
+  { month: '9月', revenue: 478.1, cost: 395.3, profit: 82.7, margin: 17.32 },
+  { month: '10月', revenue: 421.2, cost: 362.3, profit: 58.8, margin: 13.98 },
+  { month: '11月', revenue: 511.0, cost: 420.5, profit: 90.4, margin: 17.71 },
+  { month: '12月', revenue: 518.9, cost: 421.2, profit: 97.7, margin: 18.84 },
 ];

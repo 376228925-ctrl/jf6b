@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell } from 'recharts';
-import { costStructureData, keyIssues2025, competitorAnalysis } from '../constants';
-import { AlertTriangle, TrendingDown, Search, XCircle, Users, ArrowUp, Minus, Crown, Medal, ArrowRight } from 'lucide-react';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, ComposedChart, Line } from 'recharts';
+import { costStructureData, keyIssues2025, competitorAnalysis, bpoTrendData } from '../constants';
+import { AlertTriangle, TrendingDown, Search, XCircle, Users, ArrowUp, Minus, Crown, Medal, ArrowRight, BarChart2 } from 'lucide-react';
 
-const COLORS = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6'];
+const COLORS = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#6366f1', '#ec4899'];
 
 export const Retrospective: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>(keyIssues2025[0].id);
@@ -85,6 +85,28 @@ export const Retrospective: React.FC = () => {
         </div>
       </div>
 
+      {/* BPO Trend Analysis (New based on report detailed data) */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-bold text-slate-800 mb-2 flex items-center gap-2">
+            <BarChart2 className="w-5 h-5 text-red-500" /> BPO 业务月度盈亏趋势 (2024.12 - 2025.12)
+          </h3>
+          <p className="text-xs text-slate-500 mb-6">自25年4月起亏损显著扩大，单月最高亏损35万，营收增长与利润严重背离。</p>
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+                <ComposedChart data={bpoTrendData} margin={{top: 20, right: 20, bottom: 20, left: 20}}>
+                    <CartesianGrid stroke="#f5f5f5" vertical={false} />
+                    <XAxis dataKey="month" scale="band" />
+                    <YAxis yAxisId="left" orientation="left" stroke="#8884d8" />
+                    <YAxis yAxisId="right" orientation="right" stroke="#82ca9d" />
+                    <Tooltip contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
+                    <Legend />
+                    <Bar yAxisId="left" dataKey="revenue" name="BPO营收(万)" barSize={20} fill="#3b82f6" radius={[4, 4, 0, 0]} />
+                    <Line yAxisId="right" type="monotone" dataKey="profit" name="BPO利润(万)" stroke="#ef4444" strokeWidth={3} />
+                </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+      </div>
+
       {/* Competitor Benchmarking Section (Visual Enhancement) */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
          <div className="p-6 border-b border-gray-200 bg-slate-50 flex items-center gap-2">
@@ -98,7 +120,7 @@ export const Retrospective: React.FC = () => {
                <div key={idx} className="border border-gray-100 rounded-xl p-5 hover:shadow-lg hover:border-blue-200 transition-all duration-300 bg-white group flex flex-col justify-between">
                   <div>
                     <div className="flex justify-between items-center mb-4">
-                       <span className="font-bold text-slate-800 text-sm truncate pr-2">{comp.client}</span>
+                       <span className="font-bold text-slate-800 text-sm truncate pr-2 max-w-[120px]">{comp.client}</span>
                        {renderRankBadge(comp.ourRank)}
                     </div>
                     
@@ -156,47 +178,50 @@ export const Retrospective: React.FC = () => {
             <h3 className="text-lg font-bold text-slate-800">关键问题归因分析 (Root Cause Analysis)</h3>
         </div>
         
-        <div className="flex flex-col md:flex-row h-[600px]">
-          {/* Tabs - Enhanced Styling */}
-          <div className="w-full md:w-1/3 bg-gray-50 border-r border-gray-200 overflow-y-auto">
-            {keyIssues2025.map((issue) => (
-              <button
-                key={issue.id}
-                onClick={() => setActiveTab(issue.id)}
-                className={`w-full text-left p-5 transition-all duration-200 border-b border-gray-100 last:border-0 ${
-                  activeTab === issue.id 
-                    ? 'bg-blue-600 text-white shadow-md z-10 relative' 
-                    : 'text-slate-600 hover:bg-white hover:text-slate-900'
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                    <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                        activeTab === issue.id 
-                           ? 'bg-white/20 text-white'
-                           : issue.severity === 'high' ? 'bg-red-100 text-red-600' : 'bg-orange-100 text-orange-600'
-                    }`}>
-                        {issue.category}
-                    </span>
-                    {activeTab === issue.id && <ArrowRight className="w-4 h-4 ml-auto text-white/50" />}
-                </div>
-                <h4 className={`font-bold text-sm mb-1 ${activeTab === issue.id ? 'text-white' : 'text-slate-900'}`}>
-                    {issue.title}
-                </h4>
-                <p className={`text-xs line-clamp-1 ${activeTab === issue.id ? 'text-blue-100' : 'text-slate-400'}`}>
-                    {issue.description}
-                </p>
-              </button>
-            ))}
+        {/* Responsive Flex Layout: Column on Mobile, Row on Desktop */}
+        <div className="flex flex-col md:flex-row md:h-[600px] h-auto">
+          {/* Tabs: Full width and scrollable on mobile */}
+          <div className="w-full md:w-1/3 bg-gray-50 border-b md:border-b-0 md:border-r border-gray-200 overflow-x-hidden overflow-y-auto max-h-[300px] md:max-h-full">
+            <div className="flex flex-col">
+                {keyIssues2025.map((issue) => (
+                <button
+                    key={issue.id}
+                    onClick={() => setActiveTab(issue.id)}
+                    className={`w-full text-left p-4 md:p-5 transition-all duration-200 border-b border-gray-100 last:border-0 md:last:border-b-0 ${
+                    activeTab === issue.id 
+                        ? 'bg-blue-600 text-white shadow-md z-10 relative' 
+                        : 'text-slate-600 hover:bg-white hover:text-slate-900'
+                    }`}
+                >
+                    <div className="flex items-center gap-2 mb-2">
+                        <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                            activeTab === issue.id 
+                            ? 'bg-white/20 text-white'
+                            : issue.severity === 'high' ? 'bg-red-100 text-red-600' : 'bg-orange-100 text-orange-600'
+                        }`}>
+                            {issue.category}
+                        </span>
+                        {activeTab === issue.id && <ArrowRight className="w-4 h-4 ml-auto text-white/50" />}
+                    </div>
+                    <h4 className={`font-bold text-sm mb-1 ${activeTab === issue.id ? 'text-white' : 'text-slate-900'}`}>
+                        {issue.title}
+                    </h4>
+                    <p className={`text-xs line-clamp-1 ${activeTab === issue.id ? 'text-blue-100' : 'text-slate-400'}`}>
+                        {issue.description}
+                    </p>
+                </button>
+                ))}
+            </div>
           </div>
 
-          {/* Content - Smoother Transition */}
-          <div className="w-full md:w-2/3 p-8 overflow-y-auto bg-white relative">
+          {/* Content: Takes remaining space */}
+          <div className="w-full md:w-2/3 p-4 md:p-8 overflow-y-auto bg-white relative min-h-[500px] md:min-h-0">
              {keyIssues2025.map(issue => {
                  if (issue.id !== activeTab) return null;
                  return (
-                     <div key={issue.id} className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-8">
+                     <div key={issue.id} className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-6 md:space-y-8">
                          <div>
-                             <h2 className="text-2xl font-bold text-slate-900 mb-2">{issue.title}</h2>
+                             <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-2">{issue.title}</h2>
                              <p className="text-slate-600 text-sm leading-relaxed border-l-4 border-blue-500 pl-4 bg-blue-50 py-2 rounded-r-lg">
                                  {issue.description}
                              </p>
@@ -215,7 +240,7 @@ export const Retrospective: React.FC = () => {
                              <h4 className="flex items-center gap-2 font-bold text-red-700 mb-3 text-lg">
                                  <XCircle className="w-5 h-5" /> 根本原因
                              </h4>
-                             <div className="bg-red-50 rounded-xl p-6 border border-red-100 text-sm text-slate-700 space-y-3 leading-relaxed whitespace-pre-line shadow-sm">
+                             <div className="bg-red-50 rounded-xl p-4 md:p-6 border border-red-100 text-sm text-slate-700 space-y-3 leading-relaxed whitespace-pre-line shadow-sm">
                                  {issue.rootCause}
                              </div>
                          </div>
@@ -224,7 +249,7 @@ export const Retrospective: React.FC = () => {
                              <h4 className="flex items-center gap-2 font-bold text-slate-800 mb-3 text-lg">
                                  <TrendingDown className="w-5 h-5 text-slate-500" /> 业务影响
                              </h4>
-                             <p className="text-sm text-slate-600 bg-gray-50 p-5 rounded-xl border border-gray-200">
+                             <p className="text-sm text-slate-600 bg-gray-50 p-4 md:p-5 rounded-xl border border-gray-200">
                                  {issue.impact}
                              </p>
                          </div>

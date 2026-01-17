@@ -1,6 +1,7 @@
 import React from 'react';
-import { strategy2026 } from '../constants';
+import { strategy2026, monthlyFinancials2026 } from '../constants';
 import { Shield, TrendingUp, Zap, Scale, ArrowRight, CheckCircle2, Cpu } from 'lucide-react';
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 
 export const Strategy: React.FC = () => {
   const getIcon = (pillar: string) => {
@@ -19,6 +20,15 @@ export const Strategy: React.FC = () => {
           'border-purple-500 bg-purple-50 text-purple-700'
       ];
       return colors[index % colors.length];
+  };
+
+  // Categorize operating status based on margin
+  const getStatus = (margin: number, month: string) => {
+      const m = parseInt(month);
+      if (m <= 3) return { text: '调整期', class: 'bg-orange-100 text-orange-600' };
+      if (m <= 6) return { text: '爬坡期', class: 'bg-blue-100 text-blue-600' };
+      if (m <= 9) return { text: '爆发期', class: 'bg-green-100 text-green-600' };
+      return { text: '稳定期', class: 'bg-purple-100 text-purple-600' };
   };
 
   return (
@@ -88,17 +98,46 @@ export const Strategy: React.FC = () => {
         })}
       </div>
 
+       {/* Growth Trajectory Chart */}
+       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 md:p-8">
+         <h3 className="font-bold text-slate-800 mb-6 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-blue-600" /> 2026 营收与利润爬坡轨迹
+         </h3>
+         <div className="h-72 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+                <AreaChart data={monthlyFinancials2026} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                    <defs>
+                        <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.1}/>
+                        <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
+                        </linearGradient>
+                        <linearGradient id="colorProfit" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#10b981" stopOpacity={0.1}/>
+                        <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                        </linearGradient>
+                    </defs>
+                    <XAxis dataKey="month" axisLine={false} tickLine={false} />
+                    <YAxis axisLine={false} tickLine={false} />
+                    <CartesianGrid vertical={false} stroke="#e5e7eb" strokeDasharray="3 3" />
+                    <Tooltip contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} />
+                    <Area type="monotone" dataKey="revenue" name="营收(万)" stroke="#3b82f6" fillOpacity={1} fill="url(#colorRevenue)" strokeWidth={2} />
+                    <Area type="monotone" dataKey="profit" name="利润(万)" stroke="#10b981" fillOpacity={1} fill="url(#colorProfit)" strokeWidth={2} />
+                </AreaChart>
+            </ResponsiveContainer>
+         </div>
+       </div>
+
       {/* Financial Roadmap Table */}
        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div className="px-8 py-5 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
-          <h3 className="font-bold text-slate-800">2026 财务月度/季度预测</h3>
+          <h3 className="font-bold text-slate-800">2026 财务月度预测明细</h3>
           <span className="text-xs text-slate-500 italic">*基于冲刺营收4421万测算</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm text-left">
             <thead className="bg-gray-50 text-slate-500 font-medium border-b border-gray-200">
               <tr>
-                <th className="px-6 py-4">时间节点</th>
+                <th className="px-6 py-4">月份</th>
                 <th className="px-6 py-4">营收预期</th>
                 <th className="px-6 py-4">成本预测</th>
                 <th className="px-6 py-4">毛利润</th>
@@ -107,39 +146,24 @@ export const Strategy: React.FC = () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100 text-slate-700">
-              <tr className="bg-slate-50">
-                <td className="px-6 py-3 font-bold text-slate-900">Q1 (1-3月)</td>
-                <td className="px-6 py-3">662.5 万</td>
-                <td className="px-6 py-3">579.8 万</td>
-                <td className="px-6 py-3 font-semibold text-green-600">82.8 万</td>
-                <td className="px-6 py-3">12.5%</td>
-                <td className="px-6 py-3 text-right"><span className="text-xs font-bold text-orange-600 bg-orange-100 px-2 py-1 rounded">调整期</span></td>
-              </tr>
-              <tr>
-                 <td className="px-6 py-3 font-bold text-slate-900">Q2 (4-6月)</td>
-                 <td className="px-6 py-3">997.8 万</td>
-                 <td className="px-6 py-3">838.3 万</td>
-                 <td className="px-6 py-3 font-semibold text-green-600">159.5 万</td>
-                 <td className="px-6 py-3">16.0%</td>
-                 <td className="px-6 py-3 text-right"><span className="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded">爬坡期</span></td>
-              </tr>
-              <tr className="bg-slate-50">
-                 <td className="px-6 py-3 font-bold text-slate-900">Q3 (7-9月)</td>
-                 <td className="px-6 py-3">1309.5 万</td>
-                 <td className="px-6 py-3">1074.1 万</td>
-                 <td className="px-6 py-3 font-semibold text-green-600">235.3 万</td>
-                 <td className="px-6 py-3">17.9%</td>
-                 <td className="px-6 py-3 text-right"><span className="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded">爆发期</span></td>
-              </tr>
-              <tr>
-                 <td className="px-6 py-3 font-bold text-slate-900">Q4 (10-12月)</td>
-                 <td className="px-6 py-3">1451.2 万</td>
-                 <td className="px-6 py-3">1164.1 万</td>
-                 <td className="px-6 py-3 font-semibold text-green-600">287.1 万</td>
-                 <td className="px-6 py-3">19.7%</td>
-                 <td className="px-6 py-3 text-right"><span className="text-xs font-bold text-purple-600 bg-purple-100 px-2 py-1 rounded">稳定期</span></td>
-              </tr>
-               <tr className="bg-blue-600 text-white font-bold">
+              {monthlyFinancials2026.map((row, idx) => {
+                  const status = getStatus(row.margin, row.month);
+                  return (
+                    <tr key={idx} className="hover:bg-slate-50 transition-colors">
+                        <td className="px-6 py-3 font-bold text-slate-900">{row.month}</td>
+                        <td className="px-6 py-3">{row.revenue.toFixed(2)} 万</td>
+                        <td className="px-6 py-3">{row.cost.toFixed(2)} 万</td>
+                        <td className={`px-6 py-3 font-semibold ${row.profit >= 0 ? 'text-green-600' : 'text-red-500'}`}>{row.profit.toFixed(2)} 万</td>
+                        <td className="px-6 py-3">{row.margin.toFixed(2)}%</td>
+                        <td className="px-6 py-3 text-right">
+                            <span className={`text-xs font-bold px-2 py-1 rounded ${status.class}`}>
+                                {status.text}
+                            </span>
+                        </td>
+                    </tr>
+                  );
+              })}
+               <tr className="bg-blue-600 text-white font-bold text-base">
                  <td className="px-6 py-4">2026 全年合计</td>
                  <td className="px-6 py-4">4421.18 万</td>
                  <td className="px-6 py-4">3696.47 万</td>
