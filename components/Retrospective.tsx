@@ -1,12 +1,36 @@
 import React, { useState } from 'react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell } from 'recharts';
-import { revenueData2025, profitData2025, costStructureData, keyIssues2025 } from '../constants';
-import { AlertTriangle, TrendingDown, Search, XCircle, FileWarning } from 'lucide-react';
+import { costStructureData, keyIssues2025, competitorAnalysis } from '../constants';
+import { AlertTriangle, TrendingDown, Search, XCircle, Users, ArrowUp, Minus, Crown, Medal, ArrowRight } from 'lucide-react';
 
 const COLORS = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6'];
 
 export const Retrospective: React.FC = () => {
   const [activeTab, setActiveTab] = useState<string>(keyIssues2025[0].id);
+
+  // Helper to render rank badge
+  const renderRankBadge = (rank: number) => {
+    let colorClass = "bg-slate-100 text-slate-600 border-slate-200";
+    let icon = <span className="font-bold text-xs">NO.{rank}</span>;
+
+    if (rank === 1) {
+        colorClass = "bg-amber-100 text-amber-800 border-amber-200";
+        icon = <Crown className="w-3.5 h-3.5 fill-current" />;
+    } else if (rank === 2) {
+        colorClass = "bg-slate-200 text-slate-700 border-slate-300"; // Silver-ish
+        icon = <Medal className="w-3.5 h-3.5" />;
+    } else if (rank === 3) {
+        colorClass = "bg-orange-100 text-orange-800 border-orange-200"; // Bronze-ish
+        icon = <Medal className="w-3.5 h-3.5" />;
+    }
+
+    return (
+        <div className={`flex items-center gap-1.5 px-3 py-1 rounded-full border ${colorClass} shadow-sm`}>
+            {icon}
+            <span className="text-xs font-bold uppercase tracking-wide">第 {rank} 名</span>
+        </div>
+    );
+  };
 
   return (
     <div className="space-y-8 animate-in slide-in-from-bottom-4 duration-500">
@@ -15,7 +39,7 @@ export const Retrospective: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
           <h3 className="text-lg font-bold text-slate-800 mb-2">2025 营收与利润缺口分析</h3>
-          <p className="text-xs text-slate-500 mb-6">营收缺口主要在Q3/Q4显现，利润因BPO亏损被严重侵蚀</p>
+          <p className="text-xs text-slate-500 mb-6">营收缺口154万(含预估)，利润缺口严重，主要受BPO亏损拖累</p>
           <div className="h-72">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={[
@@ -36,7 +60,7 @@ export const Retrospective: React.FC = () => {
 
         <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
           <h3 className="text-lg font-bold text-slate-800 mb-2">2025 成本结构拆解</h3>
-          <p className="text-xs text-slate-500 mb-6">刚性人力成本占比高达78%，压缩空间有限，需优化结构</p>
+          <p className="text-xs text-slate-500 mb-6">人力成本占比77.93%，独立BU成本占比14.2%</p>
           <div className="h-72 flex items-center">
              <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -61,7 +85,71 @@ export const Retrospective: React.FC = () => {
         </div>
       </div>
 
-      {/* Deep Dive Analysis Section */}
+      {/* Competitor Benchmarking Section (Visual Enhancement) */}
+      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+         <div className="p-6 border-b border-gray-200 bg-slate-50 flex items-center gap-2">
+            <Users className="w-5 h-5 text-blue-600" />
+            <h3 className="text-lg font-bold text-slate-800">友商对标分析 (Competitor Comparison)</h3>
+        </div>
+        <div className="p-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+           {competitorAnalysis.map((comp, idx) => {
+             const maxVal = Math.max(comp.ourHeadcount, comp.topCompetitorHeadcount);
+             return (
+               <div key={idx} className="border border-gray-100 rounded-xl p-5 hover:shadow-lg hover:border-blue-200 transition-all duration-300 bg-white group flex flex-col justify-between">
+                  <div>
+                    <div className="flex justify-between items-center mb-4">
+                       <span className="font-bold text-slate-800 text-sm truncate pr-2">{comp.client}</span>
+                       {renderRankBadge(comp.ourRank)}
+                    </div>
+                    
+                    {/* Visual Comparison Bar */}
+                    <div className="space-y-3 mb-5">
+                       {/* Us */}
+                       <div>
+                         <div className="flex justify-between text-xs mb-1">
+                            <span className="font-bold text-blue-600">我方</span>
+                            <span className="font-bold text-blue-600">{comp.ourHeadcount}人</span>
+                         </div>
+                         <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                            <div className="bg-blue-600 h-2.5 rounded-full" style={{width: `${(comp.ourHeadcount / maxVal) * 100}%`}}></div>
+                         </div>
+                       </div>
+                       
+                       {/* Competitor */}
+                       <div>
+                         <div className="flex justify-between text-xs mb-1">
+                            <span className="text-slate-500 font-medium">友商 ({comp.topCompetitorName})</span>
+                            <span className="text-slate-500 font-medium">{comp.topCompetitorHeadcount}人</span>
+                         </div>
+                         <div className="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                            <div className="bg-slate-400 h-2.5 rounded-full" style={{width: `${(comp.topCompetitorHeadcount / maxVal) * 100}%`}}></div>
+                         </div>
+                       </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 mb-3">
+                       {comp.trend === 'up' ? (
+                           <span className="flex items-center gap-1 text-[10px] font-bold bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-100">
+                               <ArrowUp className="w-3 h-3" /> 份额提升
+                           </span>
+                       ) : (
+                           <span className="flex items-center gap-1 text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded border border-slate-200">
+                               <Minus className="w-3 h-3" /> 份额持平
+                           </span>
+                       )}
+                    </div>
+                  </div>
+                  
+                  <p className="text-xs text-slate-500 leading-relaxed border-t border-gray-50 pt-3 mt-1">
+                     {comp.description}
+                  </p>
+               </div>
+             );
+           })}
+        </div>
+      </div>
+
+      {/* Deep Dive Analysis Section (Interactivity Enhancement) */}
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div className="p-6 border-b border-gray-200 bg-gray-50 flex items-center gap-2">
             <Search className="w-5 h-5 text-slate-500" />
@@ -69,71 +157,74 @@ export const Retrospective: React.FC = () => {
         </div>
         
         <div className="flex flex-col md:flex-row h-[600px]">
-          {/* Tabs */}
+          {/* Tabs - Enhanced Styling */}
           <div className="w-full md:w-1/3 bg-gray-50 border-r border-gray-200 overflow-y-auto">
             {keyIssues2025.map((issue) => (
               <button
                 key={issue.id}
                 onClick={() => setActiveTab(issue.id)}
-                className={`w-full text-left p-5 border-l-4 transition-all hover:bg-white ${
+                className={`w-full text-left p-5 transition-all duration-200 border-b border-gray-100 last:border-0 ${
                   activeTab === issue.id 
-                    ? 'bg-white border-l-blue-600 shadow-sm' 
-                    : 'border-l-transparent text-slate-600'
+                    ? 'bg-blue-600 text-white shadow-md z-10 relative' 
+                    : 'text-slate-600 hover:bg-white hover:text-slate-900'
                 }`}
               >
                 <div className="flex items-center gap-2 mb-2">
                     <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                        issue.severity === 'high' ? 'bg-red-100 text-red-600' : 'bg-orange-100 text-orange-600'
+                        activeTab === issue.id 
+                           ? 'bg-white/20 text-white'
+                           : issue.severity === 'high' ? 'bg-red-100 text-red-600' : 'bg-orange-100 text-orange-600'
                     }`}>
                         {issue.category}
                     </span>
+                    {activeTab === issue.id && <ArrowRight className="w-4 h-4 ml-auto text-white/50" />}
                 </div>
-                <h4 className={`font-semibold text-sm ${activeTab === issue.id ? 'text-slate-900' : 'text-slate-600'}`}>
+                <h4 className={`font-bold text-sm mb-1 ${activeTab === issue.id ? 'text-white' : 'text-slate-900'}`}>
                     {issue.title}
                 </h4>
-                <p className="text-xs text-slate-400 mt-2 line-clamp-2">
+                <p className={`text-xs line-clamp-1 ${activeTab === issue.id ? 'text-blue-100' : 'text-slate-400'}`}>
                     {issue.description}
                 </p>
               </button>
             ))}
           </div>
 
-          {/* Content */}
-          <div className="w-full md:w-2/3 p-8 overflow-y-auto">
+          {/* Content - Smoother Transition */}
+          <div className="w-full md:w-2/3 p-8 overflow-y-auto bg-white relative">
              {keyIssues2025.map(issue => {
                  if (issue.id !== activeTab) return null;
                  return (
-                     <div key={issue.id} className="animate-in fade-in duration-300 space-y-8">
+                     <div key={issue.id} className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-8">
                          <div>
                              <h2 className="text-2xl font-bold text-slate-900 mb-2">{issue.title}</h2>
-                             <p className="text-slate-600 text-sm leading-relaxed border-l-4 border-slate-200 pl-4">
+                             <p className="text-slate-600 text-sm leading-relaxed border-l-4 border-blue-500 pl-4 bg-blue-50 py-2 rounded-r-lg">
                                  {issue.description}
                              </p>
                          </div>
 
                          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                              {issue.dataPoints?.map((dp, idx) => (
-                                 <div key={idx} className="bg-slate-50 p-3 rounded border border-slate-100 text-center">
-                                     <span className="block text-xs text-slate-400 uppercase tracking-wide mb-1">关键数据</span>
-                                     <span className="font-bold text-slate-700">{dp}</span>
+                                 <div key={idx} className="bg-slate-50 p-4 rounded-lg border border-slate-100 text-center shadow-sm">
+                                     <span className="block text-xs text-slate-400 uppercase tracking-wide mb-1 font-bold">关键数据</span>
+                                     <span className="font-bold text-slate-800 text-lg">{dp}</span>
                                  </div>
                              ))}
                          </div>
 
                          <div>
-                             <h4 className="flex items-center gap-2 font-bold text-red-700 mb-3">
-                                 <XCircle className="w-5 h-5" /> 根本原因 (Root Causes)
+                             <h4 className="flex items-center gap-2 font-bold text-red-700 mb-3 text-lg">
+                                 <XCircle className="w-5 h-5" /> 根本原因
                              </h4>
-                             <div className="bg-red-50 rounded-lg p-5 border border-red-100 text-sm text-slate-700 space-y-3 leading-relaxed whitespace-pre-line">
+                             <div className="bg-red-50 rounded-xl p-6 border border-red-100 text-sm text-slate-700 space-y-3 leading-relaxed whitespace-pre-line shadow-sm">
                                  {issue.rootCause}
                              </div>
                          </div>
 
                          <div>
-                             <h4 className="flex items-center gap-2 font-bold text-slate-800 mb-3">
+                             <h4 className="flex items-center gap-2 font-bold text-slate-800 mb-3 text-lg">
                                  <TrendingDown className="w-5 h-5 text-slate-500" /> 业务影响
                              </h4>
-                             <p className="text-sm text-slate-600 bg-gray-50 p-4 rounded-lg">
+                             <p className="text-sm text-slate-600 bg-gray-50 p-5 rounded-xl border border-gray-200">
                                  {issue.impact}
                              </p>
                          </div>

@@ -6,18 +6,29 @@ export interface FinancialMetric {
   actual: number;
   unit: string;
   status: 'success' | 'warning' | 'danger';
-  analysis?: string; // Added for detailed analysis text
+  analysis?: string;
+}
+
+export interface CompetitorData {
+  client: string;
+  ourHeadcount: number;
+  ourRank: number;
+  topCompetitorName: string;
+  topCompetitorHeadcount: number;
+  totalCompetitors?: number;
+  trend: 'up' | 'down' | 'stable';
+  description: string;
 }
 
 export interface Issue {
   id: string;
   category: string;
   title: string;
-  description: string; // High level summary
-  rootCause: string;   // Deep dive analysis
-  impact: string;      // Financial/Strategic impact
+  description: string;
+  rootCause: string;
+  impact: string;
   severity: 'high' | 'medium' | 'low';
-  dataPoints?: string[]; // Specific evidences
+  dataPoints?: string[];
 }
 
 export interface StrategyItem {
@@ -25,16 +36,16 @@ export interface StrategyItem {
   pillar: string; 
   title: string;
   description: string;
-  tactics: string[]; // Specific tactical steps
-  kpi: string;       // Measurable goal
+  tactics: string[];
+  kpi: string;
 }
 
 export interface ActionPlan {
   issueId: string;
   category: string;
   issueTitle: string;
-  strategy: string;    // Strategic approach
-  milestones: string[]; // Quarterly or monthly milestones
+  strategy: string;
+  milestones: string[];
   owner: string;
   risk: string;
   expectedOutcome: string;

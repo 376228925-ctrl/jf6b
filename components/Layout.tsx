@@ -10,10 +10,10 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ currentView, onViewChange, children }) => {
   const menuItems = [
-    { id: 'dashboard' as ViewState, label: '执行摘要 (Executive Summary)', icon: LayoutDashboard },
-    { id: 'retrospective' as ViewState, label: '2025深度复盘 (Deep Dive)', icon: History },
-    { id: 'strategy' as ViewState, label: '2026战略规划 (Strategy)', icon: Telescope },
-    { id: 'actions' as ViewState, label: '落地行动矩阵 (Action Matrix)', icon: ClipboardCheck },
+    { id: 'dashboard' as ViewState, label: '执行摘要', icon: LayoutDashboard },
+    { id: 'retrospective' as ViewState, label: '深度复盘 (2025)', icon: History },
+    { id: 'strategy' as ViewState, label: '战略规划 (2026)', icon: Telescope },
+    { id: 'actions' as ViewState, label: '落地行动矩阵', icon: ClipboardCheck },
   ];
 
   return (
@@ -41,26 +41,15 @@ export const Layout: React.FC<LayoutProps> = ({ currentView, onViewChange, child
                 onClick={() => onViewChange(item.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-lg transition-all duration-200 group ${
                   currentView === item.id
-                    ? 'bg-blue-600 text-white shadow-lg translate-x-1'
+                    ? 'bg-blue-600 text-white shadow-lg translate-x-1 font-semibold'
                     : 'text-slate-400 hover:bg-slate-800 hover:text-white hover:translate-x-1'
                 }`}
               >
                 <item.icon className={`w-5 h-5 ${currentView === item.id ? 'text-white' : 'text-slate-500 group-hover:text-white'}`} />
-                <span className="font-medium text-sm">{item.label}</span>
+                <span className="text-sm">{item.label}</span>
               </button>
             ))}
           </nav>
-        </div>
-
-        <div className="mt-auto p-6 border-t border-slate-800 bg-slate-950">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-xs font-bold">杨</div>
-            <div>
-              <p className="text-sm font-medium text-white">汇报人：杨胜</p>
-              <p className="text-xs text-slate-500">交付总监</p>
-            </div>
-          </div>
-          <p className="text-xs text-slate-600 text-center mt-2">生成日期: 2025.12.26</p>
         </div>
       </aside>
 
@@ -69,7 +58,7 @@ export const Layout: React.FC<LayoutProps> = ({ currentView, onViewChange, child
         <header className="bg-white shadow-sm border-b border-gray-200 px-8 py-5 sticky top-0 z-20 flex justify-between items-center">
           <div>
             <h2 className="text-2xl font-bold text-slate-800 tracking-tight">
-              {menuItems.find(i => i.id === currentView)?.label.split('(')[0]}
+              {menuItems.find(i => i.id === currentView)?.label}
             </h2>
              <p className="text-sm text-slate-500 mt-1">
               Delivery Dept 6 Annual Strategic Review & 2026 Outlook
@@ -77,7 +66,7 @@ export const Layout: React.FC<LayoutProps> = ({ currentView, onViewChange, child
           </div>
           <div className="hidden lg:flex items-center gap-2">
             <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-semibold border border-blue-100">
-              CONFIDENTIAL / 内部绝密
+              内部绝密资料
             </span>
           </div>
         </header>

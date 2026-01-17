@@ -9,7 +9,7 @@ export const ActionPlanView: React.FC = () => {
       {/* Header */}
       <div className="bg-slate-900 text-white p-8 rounded-xl shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div>
-           <h2 className="text-2xl font-bold mb-2">2026 重点行动矩阵 (Execution Matrix)</h2>
+           <h2 className="text-2xl font-bold mb-2">2026 重点行动矩阵 (Action Matrix)</h2>
            <p className="text-slate-400 text-sm max-w-2xl">
             本矩阵建立了从“2025问题点”到“2026解决方案”的直接映射。所有行动项均已落实到责任人与季度里程碑，确保战略不悬空。
           </p>
@@ -37,7 +37,7 @@ export const ActionPlanView: React.FC = () => {
                   </h3>
                </div>
                <div className="md:text-right">
-                  <div className="text-xs text-slate-400 uppercase tracking-wide mb-1">应对策略 (Strategy)</div>
+                  <div className="text-xs text-slate-400 uppercase tracking-wide mb-1">应对策略</div>
                   <div className="text-blue-700 font-bold text-lg">{action.strategy}</div>
                </div>
             </div>
@@ -68,7 +68,7 @@ export const ActionPlanView: React.FC = () => {
                   {/* Owner */}
                   <div>
                     <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2 flex items-center gap-1">
-                        <User className="w-3 h-3" /> 责任人 (Owner)
+                        <User className="w-3 h-3" /> 责任人
                     </h4>
                     <p className="font-medium text-slate-800">{action.owner}</p>
                   </div>
@@ -76,7 +76,7 @@ export const ActionPlanView: React.FC = () => {
                   {/* Risks */}
                   <div>
                     <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2 flex items-center gap-1">
-                        <AlertTriangle className="w-3 h-3" /> 潜在风险 (Risk)
+                        <AlertTriangle className="w-3 h-3" /> 潜在风险
                     </h4>
                     <p className="text-sm text-slate-600 leading-snug">{action.risk}</p>
                   </div>
@@ -84,7 +84,7 @@ export const ActionPlanView: React.FC = () => {
                    {/* Outcome */}
                   <div>
                     <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wide mb-2 flex items-center gap-1">
-                        <Flag className="w-3 h-3" /> 预期成果 (Outcome)
+                        <Flag className="w-3 h-3" /> 预期成果
                     </h4>
                     <div className="flex items-start gap-2 text-green-700 bg-green-50 p-3 rounded border border-green-100 text-sm font-medium">
                         <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
