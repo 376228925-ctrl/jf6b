@@ -33,7 +33,7 @@ export const Dashboard: React.FC = () => {
           <div className="space-y-3">
              <h4 className="font-semibold text-slate-700 border-b border-gray-100 pb-2">2026 规划：BPO扭亏与新赛道突围</h4>
              <p className="text-slate-600 leading-relaxed text-sm text-justify">
-               2026年战略目标：冲刺营收 <strong className="text-blue-700">4421万</strong>，冲刺毛利 <strong className="text-green-700">724万</strong>。
+               2026年战略目标：冲刺营收 <strong className="text-blue-700">3985.48万</strong>，冲刺毛利 <strong className="text-green-700">624.05万</strong>。
                <br/>
                <strong>关键举措：</strong>
                1. <strong>BPO重构：</strong>全面推行计件制（(结算-成本)*0.8），锁定20%毛利，重点投入百度自驾与大模型项目。
@@ -147,7 +147,7 @@ export const Dashboard: React.FC = () => {
                       <TrendingUp className="w-6 h-6" />
                    </div>
                    <div>
-                       <div className="text-2xl font-bold text-green-400 tabular-nums">+120%</div>
+                       <div className="text-2xl font-bold text-green-400 tabular-nums">+98.3%</div>
                        <div className="text-xs text-slate-400 font-medium uppercase">同比 2025 增长率</div>
                    </div>
                 </div>
@@ -177,12 +177,12 @@ export const Dashboard: React.FC = () => {
                  <div className="flex items-center justify-between bg-green-50 rounded-xl p-4 border border-green-100">
                     <div>
                         <div className="text-xs font-bold text-green-800 uppercase mb-1">目标毛利率</div>
-                        <div className="text-2xl md:text-3xl font-black text-green-700 tracking-tight tabular-nums">16.39%</div>
+                        <div className="text-2xl md:text-3xl font-black text-green-700 tracking-tight tabular-nums">15.66%</div>
                     </div>
                     <div className="text-right">
                         <div className="text-xs text-green-600 mb-1">vs 2025 (2.9%)</div>
                         <div className="inline-block bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-lg">
-                            +13.4 pts
+                            +12.7 pts
                         </div>
                     </div>
                  </div>

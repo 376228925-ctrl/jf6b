@@ -36,12 +36,12 @@ export const metrics2025: FinancialMetric[] = [
   },
 ];
 
-// 2026 Targets - Updated based on "26年目标及计划-汇总" slide
+// 2026 Targets - Updated based on new attachment data
 export const metrics2026: FinancialMetric[] = [
-  { label: '保底营收目标', target: 3536.95, actual: 0, unit: '万元', status: 'warning' },
-  { label: '冲刺营收目标', target: 4421.18, actual: 0, unit: '万元', status: 'success' },
-  { label: '保底毛利润', target: 579.77, actual: 0, unit: '万元', status: 'warning' },
-  { label: '冲刺毛利润', target: 724.71, actual: 0, unit: '万元', status: 'success' },
+  { label: '保底营收目标', target: 3188.39, actual: 0, unit: '万元', status: 'warning' },
+  { label: '冲刺营收目标', target: 3985.48, actual: 0, unit: '万元', status: 'success' },
+  { label: '保底毛利润', target: 499.24, actual: 0, unit: '万元', status: 'warning' },
+  { label: '冲刺毛利润', target: 624.05, actual: 0, unit: '万元', status: 'success' },
 ];
 
 // Competitor Analysis Data - Updated rankings based on slides 9 & 10
@@ -138,7 +138,7 @@ export const keyIssues2025: Issue[] = [
   }
 ];
 
-// Detailed 2026 Strategy - Updated based on client specific slides
+// Detailed 2026 Strategy
 export const strategy2026: StrategyItem[] = [
   {
     id: 's1',
@@ -249,7 +249,6 @@ export const actionPlan: ActionPlan[] = [
   }
 ];
 
-// Cost Structure based on slide 4
 export const costStructureData = [
   { name: '人力成本', value: 77.93 },
   { name: '独立BU成本', value: 14.20 },
@@ -260,7 +259,6 @@ export const costStructureData = [
   { name: '收购成本', value: 0.73 }
 ];
 
-// BPO Monthly Financial Trend 2024-2025 (Slide 5)
 export const bpoTrendData = [
   { month: '24-12', revenue: 16.1, profit: -12.2 },
   { month: '25-01', revenue: 20.5, profit: -6.8 },
@@ -277,18 +275,135 @@ export const bpoTrendData = [
   { month: '25-12', revenue: 78.7, profit: 19.6 }
 ];
 
-// 2026 Monthly Forecast (Slide 27)
-export const monthlyFinancials2026 = [
-  { month: '1月', revenue: 229.7, cost: 194.8, profit: 34.8, margin: 15.18 },
-  { month: '2月', revenue: 178.4, cost: 175.1, profit: 3.3, margin: 1.87 },
-  { month: '3月', revenue: 254.4, cost: 209.8, profit: 44.5, margin: 17.51 },
-  { month: '4月', revenue: 305.4, cost: 251.4, profit: 53.9, margin: 17.67 },
-  { month: '5月', revenue: 325.9, cost: 286.4, profit: 39.5, margin: 12.12 },
-  { month: '6月', revenue: 366.3, cost: 300.3, profit: 66.0, margin: 18.02 },
-  { month: '7月', revenue: 371.0, cost: 297.1, profit: 73.9, margin: 19.92 },
-  { month: '8月', revenue: 460.3, cost: 381.7, profit: 78.6, margin: 17.08 },
-  { month: '9月', revenue: 478.1, cost: 395.3, profit: 82.7, margin: 17.32 },
-  { month: '10月', revenue: 421.2, cost: 362.3, profit: 58.8, margin: 13.98 },
-  { month: '11月', revenue: 511.0, cost: 420.5, profit: 90.4, margin: 17.71 },
-  { month: '12月', revenue: 518.9, cost: 421.2, profit: 97.7, margin: 18.84 },
+// Detailed Composite Data for 2026 Forecast
+export const detailedMonthlyData2026 = [
+  {
+    month: '1月',
+    revenue: 231.13, cost: 195.33, profit: 35.80, margin: 15.49,
+    projects: [
+      { name: '爱奇迹', revenue: 8.45, cost: 7.67, profit: 0.78, margin: 9.23 },
+      { name: '极致游戏', revenue: 0, cost: 0, profit: 0, margin: 0 },
+      { name: '百度众测', revenue: 82.17, cost: 65.73, profit: 16.43, margin: 20.00 },
+      { name: '平安产险', revenue: 140.51, cost: 121.92, profit: 18.58, margin: 13.23 }
+    ]
+  },
+  {
+    month: '2月',
+    revenue: 179.60, cost: 175.58, profit: 4.02, margin: 2.24,
+    projects: [
+      { name: '爱奇迹', revenue: 9.10, cost: 8.26, profit: 0.84, margin: 9.23 },
+      { name: '极致游戏', revenue: 0, cost: 0, profit: 0, margin: 0 },
+      { name: '百度众测', revenue: 56.74, cost: 45.39, profit: 11.34, margin: 20.00 },
+      { name: '平安产险', revenue: 113.74, cost: 121.92, profit: -8.17, margin: -7.19 }
+    ]
+  },
+  {
+    month: '3月',
+    revenue: 255.95, cost: 210.35, profit: 45.60, margin: 17.82,
+    projects: [
+      { name: '爱奇迹', revenue: 10.39, cost: 9.43, profit: 0.95, margin: 9.23 },
+      { name: '极致游戏', revenue: 3.75, cost: 3.12, profit: 0.62, margin: 16.67 },
+      { name: '百度众测', revenue: 87.90, cost: 70.32, profit: 17.58, margin: 20.00 },
+      { name: '平安产险', revenue: 153.89, cost: 127.46, profit: 26.42, margin: 17.17 }
+    ]
+  },
+  {
+    month: '4月',
+    revenue: 307.09, cost: 251.99, profit: 55.10, margin: 17.94,
+    projects: [
+      { name: '爱奇迹', revenue: 12.99, cost: 11.79, profit: 1.19, margin: 9.23 },
+      { name: '极致游戏', revenue: 9.60, cost: 8.00, profit: 1.60, margin: 16.67 },
+      { name: '百度众测', revenue: 121.68, cost: 97.34, profit: 24.33, margin: 20.00 },
+      { name: '平安产险', revenue: 162.81, cost: 134.85, profit: 27.96, margin: 17.17 }
+    ]
+  },
+  {
+    month: '5月',
+    revenue: 317.45, cost: 279.51, profit: 37.94, margin: 11.95,
+    projects: [
+      { name: '爱奇迹', revenue: 13.57, cost: 12.31, profit: 1.25, margin: 9.23 },
+      { name: '极致游戏', revenue: 14.85, cost: 12.37, profit: 2.47, margin: 16.67 },
+      { name: '百度众测', revenue: 140.71, cost: 112.56, profit: 28.14, margin: 20.00 },
+      { name: '平安产险', revenue: 148.31, cost: 142.24, profit: 6.07, margin: 4.10 }
+    ]
+  },
+  {
+    month: '6月',
+    revenue: 342.71, cost: 281.81, profit: 60.90, margin: 17.77,
+    projects: [
+      { name: '爱奇迹', revenue: 17.61, cost: 15.98, profit: 1.62, margin: 9.23 },
+      { name: '极致游戏', revenue: 17.10, cost: 14.25, profit: 2.85, margin: 16.67 },
+      { name: '百度众测', revenue: 125.11, cost: 100.08, profit: 25.02, margin: 20.00 },
+      { name: '平安产险', revenue: 182.88, cost: 151.47, profit: 31.40, margin: 17.17 }
+    ]
+  },
+  {
+    month: '7月',
+    revenue: 332.51, cost: 267.37, profit: 65.15, margin: 19.59,
+    projects: [
+      { name: '爱奇迹', revenue: 20.79, cost: 18.87, profit: 1.91, margin: 9.23 },
+      { name: '极致游戏', revenue: 18.52, cost: 15.43, profit: 3.08, margin: 16.67 },
+      { name: '百度众测', revenue: 99.64, cost: 79.71, profit: 19.92, margin: 20.00 },
+      { name: '平安产险', revenue: 193.53, cost: 153.32, profit: 40.20, margin: 20.77 }
+    ]
+  },
+  {
+    month: '8月',
+    revenue: 408.12, cost: 341.80, profit: 66.33, margin: 16.25,
+    projects: [
+      { name: '爱奇迹', revenue: 23.39, cost: 21.23, profit: 2.15, margin: 9.23 },
+      { name: '极致游戏', revenue: 20.25, cost: 16.87, profit: 3.37, margin: 16.67 },
+      { name: '百度众测', revenue: 185.64, cost: 148.51, profit: 37.12, margin: 20.00 },
+      { name: '平安产险', revenue: 178.83, cost: 155.17, profit: 23.65, margin: 13.23 }
+    ]
+  },
+  {
+    month: '9月',
+    revenue: 411.88, cost: 344.91, profit: 66.97, margin: 16.26,
+    projects: [
+      { name: '爱奇迹', revenue: 25.35, cost: 23.01, profit: 2.34, margin: 9.23 },
+      { name: '极致游戏', revenue: 21.37, cost: 17.81, profit: 3.56, margin: 16.67 },
+      { name: '百度众测', revenue: 188.44, cost: 150.75, profit: 37.68, margin: 20.00 },
+      { name: '平安产险', revenue: 176.70, cost: 153.32, profit: 23.37, margin: 13.23 }
+    ]
+  },
+  {
+    month: '10月',
+    revenue: 349.38, cost: 307.87, profit: 41.51, margin: 11.88,
+    projects: [
+      { name: '爱奇迹', revenue: 22.00, cost: 19.97, profit: 2.03, margin: 9.23 },
+      { name: '极致游戏', revenue: 16.80, cost: 14.00, profit: 2.80, margin: 16.67 },
+      { name: '百度众测', revenue: 150.69, cost: 120.55, profit: 30.13, margin: 20.00 },
+      { name: '平安产险', revenue: 159.87, cost: 153.32, profit: 6.54, margin: 4.10 }
+    ]
+  },
+  {
+    month: '11月',
+    revenue: 413.80, cost: 346.86, profit: 66.93, margin: 16.17,
+    projects: [
+      { name: '爱奇迹', revenue: 27.94, cost: 25.36, profit: 2.57, margin: 9.23 },
+      { name: '极致游戏', revenue: 21.37, cost: 17.81, profit: 3.56, margin: 16.67 },
+      { name: '百度众测', revenue: 185.64, cost: 148.51, profit: 37.12, margin: 20.00 },
+      { name: '平安产险', revenue: 178.83, cost: 155.17, profit: 23.65, margin: 13.23 }
+    ]
+  },
+  {
+    month: '12月',
+    revenue: 435.89, cost: 358.06, profit: 77.82, margin: 17.85,
+    projects: [
+      { name: '爱奇迹', revenue: 30.55, cost: 27.73, profit: 2.82, margin: 9.23 },
+      { name: '极致游戏', revenue: 21.37, cost: 17.81, profit: 3.56, margin: 16.67 },
+      { name: '百度众测', revenue: 194.37, cost: 155.50, profit: 38.87, margin: 20.00 },
+      { name: '平安产险', revenue: 189.57, cost: 157.02, profit: 32.55, margin: 17.17 }
+    ]
+  },
 ];
+
+// For the chart, we can just use the top level of the detailed data
+export const monthlyFinancials2026 = detailedMonthlyData2026.map(m => ({
+    month: m.month,
+    revenue: m.revenue,
+    cost: m.cost,
+    profit: m.profit,
+    margin: m.margin
+}));
