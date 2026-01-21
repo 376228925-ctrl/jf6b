@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, ComposedChart, Line } from 'recharts';
 import { costStructureData, keyIssues2025, competitorAnalysis, bpoTrendData } from '../constants';
@@ -175,7 +176,7 @@ export const Retrospective: React.FC = () => {
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
         <div className="p-6 border-b border-gray-200 bg-gray-50 flex items-center gap-2">
             <Search className="w-5 h-5 text-slate-500" />
-            <h3 className="text-lg font-bold text-slate-800">关键问题归因分析 (Root Cause Analysis)</h3>
+            <h3 className="text-lg font-bold text-slate-800">问题深度分析 (2025)</h3>
         </div>
         
         {/* Responsive Flex Layout: Column on Mobile, Row on Desktop */}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { metrics2025, metrics2026 } from '../constants';
-import { TrendingUp, TrendingDown, Target, AlertOctagon, Briefcase, DollarSign, Trophy, Percent } from 'lucide-react';
+import { TrendingUp, TrendingDown, Target, AlertOctagon, Briefcase, DollarSign, Trophy, Percent, Crown } from 'lucide-react';
 
 export const Dashboard: React.FC = () => {
   // Helper to extract rank from analysis string if present
@@ -16,7 +16,7 @@ export const Dashboard: React.FC = () => {
       <div className="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-200 border-l-4 border-l-blue-600">
         <h3 className="text-lg md:text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
           <Briefcase className="w-5 h-5 md:w-6 md:h-6 text-blue-600" />
-          管理层摘要 (Executive Summary)
+          25 年复盘总结
         </h3>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           <div className="space-y-3">
@@ -33,12 +33,12 @@ export const Dashboard: React.FC = () => {
           <div className="space-y-3">
              <h4 className="font-semibold text-slate-700 border-b border-gray-100 pb-2">2026 规划：BPO扭亏与新赛道突围</h4>
              <p className="text-slate-600 leading-relaxed text-sm text-justify">
-               2026年战略目标：冲刺营收 <strong className="text-blue-700">3985.48万</strong>，冲刺毛利 <strong className="text-green-700">624.05万</strong>。
+               2026年战略目标：保底营收 <strong className="text-blue-700">3188.39万</strong>，保底毛利 <strong className="text-green-700">499.24万</strong>。
                <br/>
                <strong>关键举措：</strong>
                1. <strong>BPO重构：</strong>全面推行计件制（(结算-成本)*0.8），锁定20%毛利，重点投入百度自驾与大模型项目。
-               2. <strong>新客突围：</strong>依托集采与内推，重点突破腾讯TEG与百度SQC，目标新增200人。
-               3. <strong>降本增效：</strong>严格控制赔付率，建立"负毛利运营熔断"机制。
+               2. <strong>数据驱动：</strong>建立“基地人均产值”与“风险预警”看板，杜绝无效工时与结算差异。
+               3. <strong>价值跃迁：</strong>沉淀行业Know-how，构建“知识资产”护城河，从“人力交付”向“专家服务”转型。
              </p>
           </div>
         </div>
@@ -123,65 +123,125 @@ export const Dashboard: React.FC = () => {
         </h3>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
            {/* Revenue Goals */}
-           <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 md:p-8 text-white shadow-xl flex flex-col justify-between relative overflow-hidden group">
+           <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-blue-200 flex flex-col justify-between relative overflow-hidden group hover:border-blue-300 transition-colors">
               <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
-                <Target size={140} />
+                <Target size={140} className="text-blue-600" />
               </div>
+              
               <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-2">
-                    <div className="w-1 h-6 bg-blue-500 rounded-full"></div>
-                    <h4 className="text-blue-100 font-semibold tracking-wide uppercase text-sm">营收目标 (Revenue)</h4>
+                <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                        <div className="w-1 h-6 bg-blue-600 rounded-full"></div>
+                        <h4 className="text-slate-500 font-bold tracking-wide uppercase text-sm">营收目标 (Revenue)</h4>
+                    </div>
                 </div>
-                <div className="flex items-baseline gap-3 mt-4">
-                   <span className="text-5xl md:text-6xl font-black tracking-tighter text-white tabular-nums">{metrics2026[1].target}</span>
-                   <span className="text-xl font-medium text-slate-400">万</span>
-                </div>
-                <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 backdrop-blur-sm">
-                   <span className="text-xs text-slate-300">保底目标:</span>
-                   <span className="text-sm font-bold text-white tabular-nums">{metrics2026[0].target}</span>
+
+                <div className="grid grid-cols-2 gap-4 mt-4 items-end">
+                   <div>
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-4xl md:text-5xl font-black tracking-tighter text-blue-900 tabular-nums">{metrics2026[0].target}</span>
+                            <span className="text-lg font-medium text-slate-400">万</span>
+                        </div>
+                        <div className="mt-1 text-xs font-bold text-blue-600 uppercase tracking-wider">
+                           保底目标 (Baseline)
+                        </div>
+                   </div>
+                   
+                   {/* Enhanced Sprint Visual */}
+                   <div className="text-right border-l border-gray-100 pl-4">
+                        <div className="flex items-baseline gap-2 justify-end text-amber-600">
+                             <Crown className="w-4 h-4" />
+                             <span className="text-2xl md:text-3xl font-black tracking-tighter tabular-nums">{metrics2026[1].target}</span>
+                             <span className="text-sm font-medium text-amber-400">万</span>
+                        </div>
+                        <div className="mt-1 text-xs font-bold text-amber-500 uppercase tracking-wider">
+                           冲刺目标 (Sprint)
+                        </div>
+                   </div>
                 </div>
               </div>
-              <div className="mt-10 relative z-10 border-t border-white/10 pt-6">
-                <div className="flex items-center gap-3">
-                   <div className="flex items-center justify-center w-10 h-10 rounded-full bg-green-500/20 text-green-400">
-                      <TrendingUp className="w-6 h-6" />
+
+              <div className="mt-6 relative z-10 border-t border-gray-100 pt-4">
+                <div className="grid grid-cols-2 gap-4">
+                   {/* Baseline Growth */}
+                   <div className="flex items-center gap-2">
+                       <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 text-blue-600 shrink-0">
+                          <TrendingUp className="w-4 h-4" />
+                       </div>
+                       <div>
+                           <div className="text-lg font-bold text-slate-700 tabular-nums leading-none">
+                            {((metrics2026[0].target - metrics2025[0].actual) / metrics2025[0].actual * 100).toFixed(1)}%
+                           </div>
+                           <div className="text-[10px] text-slate-400 font-medium uppercase mt-0.5">保底同比增长</div>
+                       </div>
                    </div>
-                   <div>
-                       <div className="text-2xl font-bold text-green-400 tabular-nums">+98.3%</div>
-                       <div className="text-xs text-slate-400 font-medium uppercase">同比 2025 增长率</div>
+
+                   {/* Sprint Growth - Added */}
+                   <div className="flex items-center gap-2 justify-end">
+                       <div className="text-right">
+                           <div className="text-lg font-bold text-amber-600 tabular-nums leading-none">
+                            {((metrics2026[1].target - metrics2025[0].actual) / metrics2025[0].actual * 100).toFixed(1)}%
+                           </div>
+                           <div className="text-[10px] text-amber-500/80 font-medium uppercase mt-0.5">冲刺同比增长</div>
+                       </div>
+                       <div className="flex items-center justify-center w-8 h-8 rounded-full bg-amber-50 text-amber-600 shrink-0">
+                          <TrendingUp className="w-4 h-4" />
+                       </div>
                    </div>
                 </div>
               </div>
            </div>
 
            {/* Profit Goals */}
-           <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col justify-between relative overflow-hidden group">
-              <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
+           <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-white rounded-2xl p-6 md:p-8 shadow-xl flex flex-col justify-between relative overflow-hidden group">
+              <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity transform group-hover:scale-110 duration-500">
                 <DollarSign size={140} />
               </div>
+              
               <div className="relative z-10">
-                <div className="flex items-center gap-2 mb-2">
-                    <div className="w-1 h-6 bg-green-500 rounded-full"></div>
-                    <h4 className="text-slate-500 font-semibold tracking-wide uppercase text-sm">利润目标 (Profit)</h4>
+                <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                        <div className="w-1 h-6 bg-green-500 rounded-full"></div>
+                        <h4 className="text-slate-400 font-bold tracking-wide uppercase text-sm">利润目标 (Profit)</h4>
+                    </div>
                 </div>
-                <div className="flex items-baseline gap-3 mt-4">
-                   <span className="text-5xl md:text-6xl font-black tracking-tighter text-green-600 tabular-nums">{metrics2026[3].target}</span>
-                   <span className="text-xl font-medium text-slate-400">万</span>
-                </div>
-                 <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200">
-                   <span className="text-xs text-slate-500">保底目标:</span>
-                   <span className="text-sm font-bold text-slate-700 tabular-nums">{metrics2026[2].target}</span>
+
+                <div className="grid grid-cols-2 gap-4 mt-4 items-end">
+                   <div>
+                       <div className="flex items-baseline gap-2">
+                           <span className="text-4xl md:text-5xl font-black tracking-tighter text-white tabular-nums">{metrics2026[2].target}</span>
+                           <span className="text-lg font-medium text-slate-400">万</span>
+                       </div>
+                       <div className="mt-1 text-xs font-bold text-green-400 uppercase tracking-wider">
+                           保底目标 (Baseline)
+                        </div>
+                   </div>
+
+                   {/* Enhanced Sprint Visual */}
+                   <div className="text-right border-l border-white/10 pl-4">
+                        <div className="flex items-baseline gap-2 justify-end text-green-300">
+                             <Crown className="w-4 h-4" />
+                             <span className="text-2xl md:text-3xl font-black tracking-tighter tabular-nums">{metrics2026[3].target}</span>
+                             <span className="text-sm font-medium text-green-500/80">万</span>
+                        </div>
+                        <div className="mt-1 text-xs font-bold text-green-500 uppercase tracking-wider">
+                           冲刺目标 (Sprint)
+                        </div>
+                   </div>
                 </div>
               </div>
-              <div className="mt-10 relative z-10 border-t border-gray-100 pt-6">
-                 <div className="flex items-center justify-between bg-green-50 rounded-xl p-4 border border-green-100">
+
+              <div className="mt-6 relative z-10 border-t border-white/10 pt-4">
+                 <div className="flex items-center justify-between bg-white/5 rounded-xl p-3 border border-white/10 backdrop-blur-sm">
                     <div>
-                        <div className="text-xs font-bold text-green-800 uppercase mb-1">目标毛利率</div>
-                        <div className="text-2xl md:text-3xl font-black text-green-700 tracking-tight tabular-nums">15.66%</div>
+                        <div className="text-[10px] font-bold text-slate-400 uppercase mb-0.5">保底毛利率</div>
+                        <div className="text-xl md:text-2xl font-black text-green-400 tracking-tight tabular-nums">
+                            {((metrics2026[2].target / metrics2026[0].target) * 100).toFixed(2)}%
+                        </div>
                     </div>
                     <div className="text-right">
-                        <div className="text-xs text-green-600 mb-1">vs 2025 (2.9%)</div>
-                        <div className="inline-block bg-green-200 text-green-800 text-xs font-bold px-2 py-1 rounded-lg">
+                        <div className="text-[10px] text-slate-400 mb-0.5">vs 2025 (2.9%)</div>
+                        <div className="inline-block bg-green-500/20 text-green-300 text-xs font-bold px-2 py-0.5 rounded-lg">
                             +12.7 pts
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { strategy2026, monthlyFinancials2026, detailedMonthlyData2026, metrics2026, actionPlan } from '../constants';
-import { Shield, TrendingUp, Zap, Scale, Calendar, Activity, Target, Layers, Info, CornerRightUp, AlertTriangle, PieChart, ArrowUpRight, CheckCircle2, User, Flag, ArrowDown } from 'lucide-react';
+import { Shield, TrendingUp, Zap, Scale, Calendar, Activity, Target, Layers, Info, CornerRightUp, AlertTriangle, PieChart, ArrowUpRight, CheckCircle2, User, Flag, ArrowDown, BarChart2, Crown } from 'lucide-react';
 import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ComposedChart, Line, Bar, ReferenceDot, LabelList, Cell, ReferenceLine, Legend } from 'recharts';
 
 export const Strategy: React.FC = () => {
@@ -33,7 +33,10 @@ export const Strategy: React.FC = () => {
   const getIcon = (pillar: string) => {
     if (pillar.includes('稳盘')) return Shield;
     if (pillar.includes('增量')) return Zap;
+    if (pillar.includes('AI')) return Target;
+    if (pillar.includes('数据')) return BarChart2;
     if (pillar.includes('利润')) return TrendingUp;
+    if (pillar.includes('价值')) return Crown;
     return Scale;
   };
 
@@ -42,7 +45,9 @@ export const Strategy: React.FC = () => {
           'border-blue-500 bg-blue-50 text-blue-700',
           'border-green-500 bg-green-50 text-green-700',
           'border-amber-500 bg-amber-50 text-amber-700',
-          'border-purple-500 bg-purple-50 text-purple-700'
+          'border-cyan-500 bg-cyan-50 text-cyan-700',
+          'border-purple-500 bg-purple-50 text-purple-700',
+          'border-rose-500 bg-rose-50 text-rose-700'
       ];
       return colors[index % colors.length];
   };
@@ -86,13 +91,13 @@ export const Strategy: React.FC = () => {
             <Target className="w-7 h-7 text-blue-700" />
             1. 核心打法 (Strategy) - 我们怎么赢？
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {strategy2026.map((item, idx) => {
                 const Icon = getIcon(item.pillar);
                 const colorClass = getColor(idx);
                 return (
-                    <div key={item.id} className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col h-full relative overflow-hidden">
-                        <div className={`absolute top-0 right-0 p-8 opacity-5 -mr-4 -mt-4 transform rotate-12 ${colorClass.split(' ')[2]}`}>
+                    <div key={item.id} className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-all flex flex-col h-full relative overflow-hidden group">
+                        <div className={`absolute top-0 right-0 p-8 opacity-5 -mr-4 -mt-4 transform rotate-12 transition-transform group-hover:rotate-45 duration-700 ${colorClass.split(' ')[2]}`}>
                             <Icon size={100} />
                         </div>
                         <div className="flex items-center gap-3 mb-4 relative z-10">
@@ -102,7 +107,18 @@ export const Strategy: React.FC = () => {
                             <h3 className="font-bold text-slate-800 text-sm uppercase tracking-wide">{item.pillar}</h3>
                         </div>
                         <h4 className="font-bold text-slate-900 mb-2 relative z-10">{item.title}</h4>
-                        <p className="text-xs text-slate-500 leading-relaxed mb-4 flex-grow relative z-10">{item.description}</p>
+                        <p className="text-xs text-slate-500 leading-relaxed mb-4 flex-grow relative z-10 min-h-[3rem]">{item.description}</p>
+                        
+                        {/* Custom rendering for tactics if they are long or specific (optional) */}
+                        <div className="space-y-2 mb-4 relative z-10">
+                             {item.tactics.map((t, i) => (
+                                 <div key={i} className="flex items-start gap-1.5 text-xs text-slate-600 bg-slate-50/50 p-1.5 rounded">
+                                     <span className="w-1 h-1 bg-current rounded-full mt-1.5 shrink-0 opacity-50"></span>
+                                     <span>{t}</span>
+                                 </div>
+                             ))}
+                        </div>
+
                         <div className="pt-4 border-t border-gray-50 mt-auto relative z-10">
                             <div className="text-[10px] text-slate-400 font-bold uppercase mb-1">KPI</div>
                             <div className="text-xs font-bold text-slate-700">{item.kpi}</div>
@@ -180,11 +196,28 @@ export const Strategy: React.FC = () => {
         </div>
       </div>
 
-      {/* CONNECTOR */}
-      <div className="flex flex-col items-center justify-center text-slate-300 py-4">
-          <div className="h-8 w-px bg-slate-200 mb-2"></div>
-          <span className="text-xs font-bold uppercase tracking-widest bg-slate-100 px-3 py-1 rounded-full text-slate-400">基于以上行动推导</span>
-          <ArrowDown className="w-5 h-5 mt-2 animate-bounce" />
+      {/* CONNECTOR - SIGNIFICANTLY ENHANCED VISUAL */}
+      <div className="relative py-12 flex flex-col items-center justify-center">
+        {/* Background Separator */}
+        <div className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent"></div>
+        
+        {/* Central Badge Container */}
+        <div className="relative z-10 flex flex-col items-center bg-gray-50 p-4">
+             {/* Text Badge */}
+             <div className="bg-slate-800 text-white px-6 py-2 rounded-t-lg shadow-lg flex items-center gap-2">
+                <span className="text-xs font-bold tracking-[0.2em] uppercase">STRATEGY TO FORECAST</span>
+             </div>
+             
+             {/* Arrow Container */}
+             <div className="bg-blue-600 text-white p-3 rounded-b-xl rounded-t-sm shadow-xl shadow-blue-200 transform transition-transform hover:scale-110 hover:shadow-2xl cursor-default">
+                <ArrowDown size={32} strokeWidth={3} className="animate-bounce" />
+             </div>
+             
+             {/* Explainer Text */}
+             <span className="mt-3 text-xs font-bold text-slate-400 bg-white px-3 py-1 rounded-full border border-slate-200 shadow-sm">
+                基于以上行动 · 强力推导
+             </span>
+        </div>
       </div>
 
       {/* SECTION 3: FORECAST (RESULT) */}
@@ -207,8 +240,8 @@ export const Strategy: React.FC = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
                 {/* Total Revenue */}
-                <div className="relative bg-gradient-to-br from-blue-50 to-white p-5 rounded-xl border border-blue-100 shadow-sm">
-                    <div className="absolute top-0 right-0 bg-blue-600 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg opacity-90 shadow-sm">
+                <div className="relative bg-gradient-to-br from-blue-50 to-white p-5 rounded-xl border border-blue-100 shadow-sm group hover:shadow-md transition-shadow">
+                    <div className="absolute top-0 right-0 bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg opacity-90 shadow-sm">
                     冲刺: {metrics2026[1].target}万
                     </div>
                     <div className="flex justify-between items-center mb-3">
@@ -221,8 +254,8 @@ export const Strategy: React.FC = () => {
                 </div>
 
                 {/* Total Profit */}
-                <div className="relative bg-gradient-to-br from-green-50 to-white p-5 rounded-xl border border-green-100 shadow-sm">
-                    <div className="absolute top-0 right-0 bg-green-600 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg opacity-90 shadow-sm">
+                <div className="relative bg-gradient-to-br from-green-50 to-white p-5 rounded-xl border border-green-100 shadow-sm group hover:shadow-md transition-shadow">
+                    <div className="absolute top-0 right-0 bg-green-100 text-green-800 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg opacity-90 shadow-sm">
                     冲刺: {metrics2026[3].target}万
                     </div>
                     <div className="flex justify-between items-center mb-3">
@@ -235,8 +268,8 @@ export const Strategy: React.FC = () => {
                 </div>
 
                 {/* Margin */}
-                <div className="relative bg-gradient-to-br from-purple-50 to-white p-5 rounded-xl border border-purple-100 shadow-sm">
-                    <div className="absolute top-0 right-0 bg-purple-600 text-white text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg opacity-90 shadow-sm">
+                <div className="relative bg-gradient-to-br from-purple-50 to-white p-5 rounded-xl border border-purple-100 shadow-sm group hover:shadow-md transition-shadow">
+                    <div className="absolute top-0 right-0 bg-purple-100 text-purple-800 text-[10px] font-bold px-2 py-1 rounded-bl-lg rounded-tr-lg opacity-90 shadow-sm">
                     冲刺: {metrics2026[1].target ? (metrics2026[3].target / metrics2026[1].target * 100).toFixed(2) : '0.00'}%
                     </div>
                     <div className="flex justify-between items-center mb-3">

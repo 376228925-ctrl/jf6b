@@ -12,8 +12,8 @@ export const Layout: React.FC<LayoutProps> = ({ currentView, onViewChange, child
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuItems = [
-    { id: 'dashboard' as ViewState, label: '执行摘要', icon: LayoutDashboard },
-    { id: 'retrospective' as ViewState, label: '深度复盘 (2025)', icon: History },
+    { id: 'dashboard' as ViewState, label: '25 年复盘总结', icon: LayoutDashboard },
+    { id: 'retrospective' as ViewState, label: '问题深度分析 (2025)', icon: History },
     { id: 'strategy' as ViewState, label: '战略与行动 (2026)', icon: Telescope }, // Renamed and combined
   ];
 
