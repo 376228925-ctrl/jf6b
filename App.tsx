@@ -3,7 +3,6 @@ import { Layout } from './components/Layout';
 import { Dashboard } from './components/Dashboard';
 import { Retrospective } from './components/Retrospective';
 import { Strategy } from './components/Strategy';
-import { ActionPlanView } from './components/ActionPlanView';
 import { ViewState } from './types';
 
 const App: React.FC = () => {
@@ -18,7 +17,7 @@ const App: React.FC = () => {
       case 'strategy':
         return <Strategy />;
       case 'actions':
-        return <ActionPlanView />;
+        return <Strategy />; // Fallback or redirect logic, essentially strategy now covers actions
       default:
         return <Dashboard />;
     }

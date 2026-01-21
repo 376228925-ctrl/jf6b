@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ViewState } from '../types';
-import { LayoutDashboard, History, Telescope, ClipboardCheck, BarChart3, Menu, X } from 'lucide-react';
+import { LayoutDashboard, History, Telescope, BarChart3, Menu, X, Milestone } from 'lucide-react';
 
 interface LayoutProps {
   currentView: ViewState;
@@ -14,8 +14,7 @@ export const Layout: React.FC<LayoutProps> = ({ currentView, onViewChange, child
   const menuItems = [
     { id: 'dashboard' as ViewState, label: '执行摘要', icon: LayoutDashboard },
     { id: 'retrospective' as ViewState, label: '深度复盘 (2025)', icon: History },
-    { id: 'strategy' as ViewState, label: '战略规划 (2026)', icon: Telescope },
-    { id: 'actions' as ViewState, label: '落地行动矩阵', icon: ClipboardCheck },
+    { id: 'strategy' as ViewState, label: '战略与行动 (2026)', icon: Telescope }, // Renamed and combined
   ];
 
   const handleMobileNavClick = (id: ViewState) => {
